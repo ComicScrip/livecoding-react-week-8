@@ -1,4 +1,5 @@
 import React from 'react';
+import students from '../data/students';
 import { Link } from 'react-router-dom';
 import { sortBy } from 'lodash';
 
@@ -32,17 +33,17 @@ class StudentsTable extends React.Component {
     super(props);
     this.state = {
       activeSort: null,
-      sortedStudents: this.props.students
+      sortedStudents: students
     };
     this.handleSortButtonClicked = this.handleSortButtonClicked.bind(this);
   }
 
   handleSortButtonClicked (fieldToSortByWithOrder) {
     if (this.state.activeSort === fieldToSortByWithOrder) {
-      this.setState({ sortedStudents: this.props.students, activeSort: null });
+      this.setState({ sortedStudents: students, activeSort: null });
     } else {
       const [fieldToSortBy, sortOrder] = fieldToSortByWithOrder.split(' ');
-      let sortedStudents = sortBy(this.props.students, fieldToSortBy);
+      let sortedStudents = sortBy(students, fieldToSortBy);
       if (sortOrder === 'DESC') {
         sortedStudents = sortedStudents.reverse();
       }
