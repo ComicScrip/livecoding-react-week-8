@@ -169,3 +169,28 @@ td a {
   margin-top: 70px;
   font-size: 50px;
 }
+
+.error-box {
+  background-color: #ff823a;
+  padding: 15px;
+  color: white;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.col-sort-buttons-container {
+  float: right;
+}
+
+.col-sort-buttons-container .sort-button{
+  margin-right: 10px;
+  opacity: 0.5;
+}
+
+.col-sort-buttons-container .sort-button:hover{
+  cursor: pointer;
+}
+
+.col-sort-buttons-container .sort-button.active{
+  opacity: 1;
+}
