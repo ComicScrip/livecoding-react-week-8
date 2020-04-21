@@ -39,24 +39,27 @@ export const withStudents = WrappedComponent => {
       };
     }
 
+    componentDidMount() {
+      this.fetchStudentList()
+    }
+
     fetchStudentList = () => {
       this.setState({ loadingStudents: true, fetchStudentsError: null });
       Student.loadAll()
         .then(studentList => {
           this.setState({ studentList, loadingStudents: false, fetchStudentsError: null});
         }).catch(error => {
-        console.error(error);
-        this.setState({
-          loadingStudents: false,
-          fetchStudentsError: 'Une erreur est survenue lors du chargement de la liste des élèves'
-        });
+          console.error(error);
+          this.setState({
+            loadingStudents: false,
+            fetchStudentsError: 'Une erreur est survenue lors du chargement de la liste des élèves'
+          });
       });
     }
 
     render () {
-      const {fetchStudentList} = this
       return (
-        <WrappedComponent {...{fetchStudentList, ...this.state, ...this.props}} />
+        <WrappedComponent {...{...this.state, ...this.props}} />
       )
     }
   }

@@ -32,7 +32,7 @@ class StudentsTable extends React.Component {
     super(props);
     this.state = {
       activeSort: null,
-      sortedStudents: this.props.students
+      sortedStudents: props.students
     };
     this.handleSortButtonClicked = this.handleSortButtonClicked.bind(this);
   }
@@ -47,6 +47,13 @@ class StudentsTable extends React.Component {
         sortedStudents = sortedStudents.reverse();
       }
       this.setState({ sortedStudents, activeSort: fieldToSortByWithOrder });
+    }
+  }
+
+  static getDerivedPropsFromState(props, state) {
+    return {
+      ...state,
+      sortedStudents: props.students
     }
   }
 
