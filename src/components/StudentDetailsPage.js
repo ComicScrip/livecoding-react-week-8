@@ -1,10 +1,16 @@
 import React from 'react';
-import students from '../data/students';
+import {withStudents} from '../data/students';
+import LoadingIndicator from './LoadingIndicator'
+import ErrorBox from './ErrorBox'
 
-export default function StudentDetailsPage ({ match: { params: { githubAccountName } } }) {
-  const student = students.find(s => s.githubUserName === githubAccountName);
+function StudentDetailsPage({ match: { params: { githubAccountName } } , studentList, loadingStudents, fetchStudentsError}) {
+  if (loadingStudents) return <LoadingIndicator/>
+  if (fetchStudentsError) return <ErrorBox message={fetchStudentsError} />
+
+  const student = studentList.find(s => s.githubUserName === githubAccountName);
   if (!student) return <p>Aucun élève avec le compte GH "{githubAccountName}"...</p>;
   const { firstName, lastName, avatarUrl, fullName, githubAccountUrl, p1bisRepoUrl, p1bisPresented } = student;
+
   return (
     <div>
       <h2>Détails sur un élève</h2>
@@ -19,6 +25,7 @@ export default function StudentDetailsPage ({ match: { params: { githubAccountNa
         <a className='p1-repo-link' href={p1bisRepoUrl}>P1bis Repo {p1bisPresented ? '✔' : ''}</a>
       </div>
     </div>
-
   );
 }
+
+export default withStudents(StudentDetailsPage);
